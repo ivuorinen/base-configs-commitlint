@@ -1,45 +1,26 @@
 # Change Log
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## 0.3.11 (2025-02-23)
 
 **Note:** Version bump only for package @ivuorinen/commitlint-config
 
-
-
-
-
 ## 0.3.10 (2025-02-23)
-
 
 ### Bug Fixes
 
-* **deps:** update globals to 16.0.0 ([#342](https://github.com/ivuorinen/base-configs/issues/342)) ([04b333b](https://github.com/ivuorinen/base-configs/commit/04b333b445b6beb4344d2f9102bb5d3dc72ae26a))
-
-
-
-
+- **deps:** update globals to 16.0.0 ([#342](https://github.com/ivuorinen/base-configs/issues/342)) ([04b333b](https://github.com/ivuorinen/base-configs/commit/04b333b445b6beb4344d2f9102bb5d3dc72ae26a))
 
 ## 0.3.9 (2025-01-17)
 
-
 ### Bug Fixes
 
-* **deps:** update eslint-config-prettier to 10.0.1 ([#324](https://github.com/ivuorinen/base-configs/issues/324)) ([8a0d38e](https://github.com/ivuorinen/base-configs/commit/8a0d38e173df40b771d42b694a24145559200506))
-
-
-
-
+- **deps:** update eslint-config-prettier to 10.0.1 ([#324](https://github.com/ivuorinen/base-configs/issues/324)) ([8a0d38e](https://github.com/ivuorinen/base-configs/commit/8a0d38e173df40b771d42b694a24145559200506))
 
 ## [0.3.8](https://github.com/ivuorinen/base-configs/compare/@ivuorinen/commitlint-config@0.3.7...@ivuorinen/commitlint-config@0.3.8) (2024-12-09)
 
 **Note:** Version bump only for package @ivuorinen/commitlint-config
-
-
-
-
 
 ## 0.3.7 (2024-11-25)
 
@@ -75,7 +56,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @ivuorinen/commitlint-config
 
-# [0.3.0](https://github.com/ivuorinen/base-configs/compare/@ivuorinen/commitlint-config@0.2.24...@ivuorinen/commitlint-config@0.3.0) (2024-08-21)
+## [0.3.0](https://github.com/ivuorinen/base-configs/compare/@ivuorinen/commitlint-config@0.2.24...@ivuorinen/commitlint-config@0.3.0) (2024-08-21)
 
 - feat!: module & commonjs in commitlint ([2de156e](https://github.com/ivuorinen/base-configs/commit/2de156e2c0f474fe19d23cc2b4b9b6eaba97e258))
 
@@ -217,7 +198,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - **deps:** update commitlint monorepo to v18.1.0 ([#118](https://github.com/ivuorinen/base-configs/issues/118)) ([3cbb852](https://github.com/ivuorinen/base-configs/commit/3cbb85289a1599eed3d87927e1bd402520b4d74d))
 
-# [0.2.0](https://github.com/ivuorinen/base-configs/compare/@ivuorinen/commitlint-config@0.1.14...@ivuorinen/commitlint-config@0.2.0) (2023-10-25)
+## [0.2.0](https://github.com/ivuorinen/base-configs/compare/@ivuorinen/commitlint-config@0.1.14...@ivuorinen/commitlint-config@0.2.0) (2023-10-25)
 
 ### Features
 
