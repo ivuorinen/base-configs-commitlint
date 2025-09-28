@@ -42,8 +42,8 @@
     "postinstall": "node scripts/postinstall.cjs"
   },
   "dependencies": {
-    "@commitlint/cli": "^19",
-    "@commitlint/config-conventional": "^19",
+    "@commitlint/cli": "^20.0.0",
+    "@commitlint/config-conventional": "^20.0.0",
     "@ivuorinen/config-checker": "^1.1.12"
   },
   "peerDependencies": {
