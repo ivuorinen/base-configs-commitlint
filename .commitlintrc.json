@@ -1,3 +1,5 @@
 {
-  "extends": ["@ivuorinen/commitlint-config"]
+  "extends": [
+    "./index.cjs"
+  ]
 }
