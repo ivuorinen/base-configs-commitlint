@@ -50,6 +50,7 @@
     "typescript": ">=4"
   },
   "devDependencies": {
+    "@ivuorinen/semantic-release-config": "^1.0.0",
     "@types/node": "*"
   },
   "packageManager": "yarn@4.12.0"
