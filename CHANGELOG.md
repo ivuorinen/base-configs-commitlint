@@ -1,3 +1,40 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# 1.0.0 (2025-12-06)
+
+
+### Bug Fixes
+
+* **github-action:** update github/codeql-action (v3.29.0 → v3.29.2) ([#2](https://github.com/ivuorinen/base-configs-commitlint/issues/2)) ([097517a](https://github.com/ivuorinen/base-configs-commitlint/commit/097517a2766f3cea1fd6fdb0187ca5fa8ac787e8))
+* **github-action:** update github/codeql-action (v3.29.2 → v3.29.4) ([#5](https://github.com/ivuorinen/base-configs-commitlint/issues/5)) ([7355b58](https://github.com/ivuorinen/base-configs-commitlint/commit/7355b5880f7bbca0b0a74d275606344ac2948a4f))
+* **github-action:** update github/codeql-action (v3.29.4 → v3.29.5) ([#8](https://github.com/ivuorinen/base-configs-commitlint/issues/8)) ([0568859](https://github.com/ivuorinen/base-configs-commitlint/commit/0568859674f24cb397f8160323af6caeea66e761))
+* **github-action:** update github/codeql-action (v3.29.5 → v3.29.8) ([#10](https://github.com/ivuorinen/base-configs-commitlint/issues/10)) ([3ebcab9](https://github.com/ivuorinen/base-configs-commitlint/commit/3ebcab936159e5f41340ed93214fa5fa7b9dca66))
+* **github-action:** update github/codeql-action (v3.29.8 → v3.29.9) ([#13](https://github.com/ivuorinen/base-configs-commitlint/issues/13)) ([dddcf2f](https://github.com/ivuorinen/base-configs-commitlint/commit/dddcf2febc3ae7e07ad3cdd4cc1f5e7038b5eeac))
+* **github-action:** update github/codeql-action (v3.29.9 → v3.29.10) ([#15](https://github.com/ivuorinen/base-configs-commitlint/issues/15)) ([727dcde](https://github.com/ivuorinen/base-configs-commitlint/commit/727dcde5ab91ecfaa77014ee7a7d53e13aa51c8b))
+* **github-action:** update ivuorinen/actions (25.7.14 → 25.7.21) ([#6](https://github.com/ivuorinen/base-configs-commitlint/issues/6)) ([ac8730d](https://github.com/ivuorinen/base-configs-commitlint/commit/ac8730df35a8d1b5689edbc1f4316c790373e43b))
+* **github-action:** update ivuorinen/actions (25.7.21 → 25.7.28) ([#7](https://github.com/ivuorinen/base-configs-commitlint/issues/7)) ([32f3980](https://github.com/ivuorinen/base-configs-commitlint/commit/32f3980cf689bd650888fdda2e841dfb055b9f92))
+* **github-action:** update ivuorinen/actions (25.7.7 → 25.7.14) ([#4](https://github.com/ivuorinen/base-configs-commitlint/issues/4)) ([b980bb9](https://github.com/ivuorinen/base-configs-commitlint/commit/b980bb94eef7a7f4f02627ef88bd4f016c90b239))
+* **github-action:** update ivuorinen/actions (25.8.11 → 25.8.18) ([#16](https://github.com/ivuorinen/base-configs-commitlint/issues/16)) ([20dcc54](https://github.com/ivuorinen/base-configs-commitlint/commit/20dcc545c1abccf736e069886e1d6d7ff8869df3))
+* **github-action:** update ivuorinen/actions (25.8.4 → 25.8.11) ([#14](https://github.com/ivuorinen/base-configs-commitlint/issues/14)) ([462341e](https://github.com/ivuorinen/base-configs-commitlint/commit/462341e31a9218ab7f879c2f9cb969f7400fd0b3))
+* **github-release:** update adrienverge/yamllint (v1.37.0 → v1.37.1) ([#17](https://github.com/ivuorinen/base-configs-commitlint/issues/17)) ([5d615bf](https://github.com/ivuorinen/base-configs-commitlint/commit/5d615bfdc083f08487d533f4f955bfc8f92039ac))
+* **github-release:** update bridgecrewio/checkov (3.2.400 → 3.2.464) ([#18](https://github.com/ivuorinen/base-configs-commitlint/issues/18)) ([2fcc1e5](https://github.com/ivuorinen/base-configs-commitlint/commit/2fcc1e5f9850f41b8c87c76cd9271a5986922d69))
+
+
+### Features
+
+* **github-action:** update actions/checkout (v4.2.2 → v4.3.0) ([#12](https://github.com/ivuorinen/base-configs-commitlint/issues/12)) ([f029ffa](https://github.com/ivuorinen/base-configs-commitlint/commit/f029ffaa521f5224faa286ac25043b90ac246fe0))
+* **github-action:** update ivuorinen/actions (25.6.17 → 25.7.7) ([#3](https://github.com/ivuorinen/base-configs-commitlint/issues/3)) ([301ca8a](https://github.com/ivuorinen/base-configs-commitlint/commit/301ca8a87a091e1a1c4e47f68322a150ff076f92))
+* **github-action:** update ivuorinen/actions (25.7.28 → 25.8.4) ([#9](https://github.com/ivuorinen/base-configs-commitlint/issues/9)) ([9d2ea4c](https://github.com/ivuorinen/base-configs-commitlint/commit/9d2ea4c21ba72326fdb738ad60969da7b7249166))
+* **github-release:** update igorshubovych/markdownlint-cli (v0.44.0 → v0.45.0) ([#19](https://github.com/ivuorinen/base-configs-commitlint/issues/19)) ([43c5faf](https://github.com/ivuorinen/base-configs-commitlint/commit/43c5fafffa3a8b2cfd3712f5ed9701154ec509d0))
+* **github-release:** update koalaman/shellcheck-precommit (v0.10.0 → v0.11.0) ([#20](https://github.com/ivuorinen/base-configs-commitlint/issues/20)) ([ec65a96](https://github.com/ivuorinen/base-configs-commitlint/commit/ec65a96642879e4cc1c986ab4f83f14beef136d7))
+* **github-release:** update renovatebot/pre-commit-hooks (39.227.2 → 39.264.0) ([#21](https://github.com/ivuorinen/base-configs-commitlint/issues/21)) ([d9897ab](https://github.com/ivuorinen/base-configs-commitlint/commit/d9897ab259cadc236819351ebc40fc72e4acdfc5))
+* initial import from base-configs ([83ac19d](https://github.com/ivuorinen/base-configs-commitlint/commit/83ac19d6b9322aba2fafcf548a8470d7265a197f))
+* release pipeline, packages, yarn upgrade ([cf9d8dc](https://github.com/ivuorinen/base-configs-commitlint/commit/cf9d8dc5a412b8b4cc73631f4b07f1e8280d8eab))
+* upgrade yarn, automation, configs, docs ([#74](https://github.com/ivuorinen/base-configs-commitlint/issues/74)) ([839b08b](https://github.com/ivuorinen/base-configs-commitlint/commit/839b08b1737b178d48da532254d8cc157e56033c))
+
 # Change Log
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
