@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.14](https://github.com/ivuorinen/base-configs-commitlint/compare/v1.0.13...v1.0.14) (2026-03-29)
+
+
+### Bug Fixes
+
+* **deps:** resolve yarn audit vulnerabilities via resolutions ([#139](https://github.com/ivuorinen/base-configs-commitlint/issues/139)) ([23f56e6](https://github.com/ivuorinen/base-configs-commitlint/commit/23f56e669cdb8cf325b9fd653d37d9f2a33b2db2))
+
 ## [1.0.13](https://github.com/ivuorinen/base-configs-commitlint/compare/v1.0.12...v1.0.13) (2026-03-27)
 
 ## [1.0.12](https://github.com/ivuorinen/base-configs-commitlint/compare/v1.0.11...v1.0.12) (2026-03-26)
