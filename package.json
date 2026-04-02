@@ -1,6 +1,6 @@
 {
   "name": "@ivuorinen/commitlint-config",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "type": "module",
   "description": "ivuorinen's shareable configuration for commitlint.",
   "author": {
