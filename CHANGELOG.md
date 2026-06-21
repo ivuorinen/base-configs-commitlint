@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.30](https://github.com/ivuorinen/base-configs-commitlint/compare/v1.0.29...v1.0.30) (2026-06-21)
+
 ## [1.0.29](https://github.com/ivuorinen/base-configs-commitlint/compare/v1.0.28...v1.0.29) (2026-06-21)
 
 ## [1.0.28](https://github.com/ivuorinen/base-configs-commitlint/compare/v1.0.27...v1.0.28) (2026-06-19)
