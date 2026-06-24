@@ -17,7 +17,7 @@
   "module": "wrapper.mjs",
   "exports": {
     "import": "./wrapper.mjs",
-    "require": "./index.js"
+    "require": "./index.cjs"
   },
   "files": [
     "index.cjs",
@@ -45,9 +45,6 @@
     "@commitlint/cli": "^20.2.0",
     "@commitlint/config-conventional": "^20.2.0",
     "@ivuorinen/config-checker": "^2"
-  },
-  "peerDependencies": {
-    "typescript": ">=4"
   },
   "devDependencies": {
     "@ivuorinen/semantic-release-config": "^1.0.0",

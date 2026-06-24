@@ -6,6 +6,12 @@ const fs = require("node:fs");
 const path = require("node:path");
 // noinspection NpmUsedModulesInstalled
 const process = require("node:process");
+
+// npm/yarn set INIT_CWD to the consumer's project root during install. Default
+// it to the current directory so this script and @ivuorinen/config-checker
+// (which also reads INIT_CWD) do not crash when run outside an install.
+process.env.INIT_CWD = process.env.INIT_CWD || process.cwd();
+
 const checkConfig = require("@ivuorinen/config-checker");
 const foundConfig = checkConfig("commitlint");
 
