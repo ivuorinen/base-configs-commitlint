@@ -10,7 +10,8 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-permissions: read-all
+# Deny-by-default at the workflow level; the job grants only what it needs.
+permissions: {}
 
 env:
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -21,25 +22,31 @@ jobs:
     name: PR Lint
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    # Dedicated environment scopes access to the NPM_TOKEN secret.
+    environment: pr-lint
     permissions:
-      contents: read
-      issues: write
-      packages: read
-      pull-requests: write
-      statuses: write
+      contents: read # required to checkout the repository
+      issues: write # required for the linter to comment on issues
+      packages: read # required to read packages metadata
+      pull-requests: write # required to comment on the pull request
+      statuses: write # required to report the lint status
 
     steps:
       - name: Checkout
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: false
 
       - name: Install and enable corepack
         shell: sh
+        # corepack must be bootstrapped globally before it can manage yarn;
+        # there is no lockfile for this toolchain install.
+        # zizmor: ignore[adhoc-packages]
         run: npm install -g corepack --force && corepack enable
 
       - name: Yarn Lock Changes
-        uses: Simek/yarn-lock-changes@61d1a0595070b79c1abdc8e1e5a5f5d98b18918c # v0.12.2
+        uses: Simek/yarn-lock-changes@59f47ee499424d2c2437c5aebf863b5c6d50a5bc # v0.14.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
         env:
@@ -48,7 +55,7 @@ jobs:
 
       - name: Run PR Lint
         # https://github.com/ivuorinen/actions
-        uses: ivuorinen/actions/pr-lint@a52399cf74eac2b0963591ab2c6c8eb0f7f50b2d # v2025.12.05
+        uses: ivuorinen/actions/pr-lint@8395dad6b7d5d7d2e1d016cac1eede33ab404a3c # v2026.06.18
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

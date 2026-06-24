@@ -20,7 +20,8 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-permissions: read-all
+# Deny-by-default at the workflow level; the job grants only what it needs.
+permissions: {}
 
 jobs:
   labels:
@@ -29,13 +30,14 @@ jobs:
     timeout-minutes: 10
 
     permissions:
-      contents: read
-      issues: write
+      contents: read # required to checkout the repository
+      issues: write # required to create and update repository labels
 
     steps:
       - name: ⤵️ Checkout Repository
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: false
       - name: ⤵️ Sync Latest Labels Definitions
-        uses: ivuorinen/actions/sync-labels@a52399cf74eac2b0963591ab2c6c8eb0f7f50b2d # v2025.12.05
+        uses: ivuorinen/actions/sync-labels@8395dad6b7d5d7d2e1d016cac1eede33ab404a3c # v2026.06.18
