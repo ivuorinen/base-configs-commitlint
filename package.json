@@ -39,7 +39,8 @@
     "url": "git+https://github.com/ivuorinen/base-configs-commitlint.git"
   },
   "scripts": {
-    "postinstall": "node scripts/postinstall.cjs"
+    "postinstall": "node scripts/postinstall.cjs",
+    "test": "node --test"
   },
   "dependencies": {
     "@commitlint/cli": "^20.2.0",

@@ -5,20 +5,11 @@ Last validated: 2026-06-25
 
 ## Summary
 
-- Total: 6 | Open: 1 | Fixed: 5 | Invalid: 0
+- Total: 6 | Open: 0 | Fixed: 6 | Invalid: 0
 
 ## Open Findings
 
-### Low
-
-#### [NIT-5] No test verifies the package entry points resolve
-
-Category: tests
-Area: package.json:41-43 (no `test` script; no test files)
-Problem: There is no test asserting that the package can be loaded via both `require()` and `import()`. The NIT-1 packaging bug would have been caught by a one-line resolution test.
-Evidence: `git ls-files | grep -iE 'test|spec'` → none; `scripts` contains only `postinstall`.
-Impact: Packaging/entry-point regressions ship undetected.
-Fix: Add a minimal test (e.g. a `test` script running a node script that `require`s and dynamically `import`s the package and asserts `config.extends` is present), and wire it into CI.
+_None._
 
 ## Fixed
 
@@ -48,5 +39,12 @@ Notes: Removed the dangling `JAVASCRIPT_ES_CONFIG_FILE` and `TYPESCRIPT_ES_CONFI
 
 Fixed: 2026-06-25
 Notes: Removed the `peerDependencies` block (only the unused `typescript` peer). Left `@types/node` devDependency in place.
+
+### Pass 2 — 2026-06-25
+
+#### [NIT-5] No test verifies the package entry points resolve
+
+Fixed: 2026-06-25
+Notes: Added `test/resolve.test.mjs` (node:test) that resolves the package by its own name — exercising the published `exports` map for both `require()` and `import()` — and asserts the config shape. Added a `test` script (`node --test`) to package.json. Wired into CI via a new `.github/workflows/test.yml` (push/PR) and a release gate step in `publish.yml` before Semantic Release. Verified the test fails (exit 1, 2 failures) when NIT-1 is reintroduced and passes once restored; the test is dependency-free (self-reference), so CI needs no install step.
 
 ## Invalid
