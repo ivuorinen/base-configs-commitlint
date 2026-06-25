@@ -60,12 +60,11 @@ jobs:
           registry-url: "https://registry.npmjs.org"
           scope: "@ivuorinen"
 
-      - name: Install and enable corepack
+      - name: Enable corepack
         shell: sh
-        # corepack must be bootstrapped globally before it can manage yarn;
-        # there is no lockfile for this toolchain install.
-        # zizmor: ignore[adhoc-packages]
-        run: npm install -g corepack --force && corepack enable
+        # Use the Corepack bundled with the .nvmrc Node version instead of
+        # installing a floating copy from npm in this privileged release job.
+        run: corepack enable
 
       - name: Cache Node Modules
         uses: actions/cache@2c8a9bd7457de244a408f35966fab2fb45fda9c8 # v6.0.0

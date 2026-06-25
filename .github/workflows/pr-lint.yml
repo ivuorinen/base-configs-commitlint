@@ -38,12 +38,11 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           persist-credentials: false
 
-      - name: Install and enable corepack
+      - name: Enable corepack
         shell: sh
-        # corepack must be bootstrapped globally before it can manage yarn;
-        # there is no lockfile for this toolchain install.
-        # zizmor: ignore[adhoc-packages]
-        run: npm install -g corepack --force && corepack enable
+        # Use the runner's bundled Corepack instead of installing a floating
+        # copy from npm.
+        run: corepack enable
 
       - name: Yarn Lock Changes
         uses: Simek/yarn-lock-changes@59f47ee499424d2c2437c5aebf863b5c6d50a5bc # v0.14.1
