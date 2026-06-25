@@ -11,24 +11,29 @@ on:
     - cron: "22 8 * * 0"
   merge_group:
 
+# Deny-by-default at the workflow level; the job grants only what it needs.
 permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
     permissions:
-      actions: read
-      contents: read
-      packages: read
-      security-events: write
+      actions: read # required to read workflow run metadata in private repos
+      contents: read # required to checkout the repository
+      packages: read # required to fetch internal or private CodeQL packs
+      security-events: write # required to upload CodeQL analysis results
     strategy:
       fail-fast: false
       matrix:
         language: ["actions", "javascript"]
     steps:
       - name: CodeQL Analysis
-        uses: ivuorinen/actions/codeql-analysis@121af64df2985470a81ff4e2eb60cdc52cb7745b # v2026.06.14
+        uses: ivuorinen/actions/codeql-analysis@8395dad6b7d5d7d2e1d016cac1eede33ab404a3c # v2026.06.18
         with:
           language: ${{ matrix.language }}
           queries: security-and-quality
