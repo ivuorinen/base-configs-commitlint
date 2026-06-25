@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.32](https://github.com/ivuorinen/base-configs-commitlint/compare/v1.0.31...v1.0.32) (2026-06-25)
+
+
+### Bug Fixes
+
+* **ci:** delete .github/workflows/sync-labels.yml ([8352048](https://github.com/ivuorinen/base-configs-commitlint/commit/8352048f15e91b447503ee30306ef41865379d2c))
+
 ## [1.0.31](https://github.com/ivuorinen/base-configs-commitlint/compare/v1.0.30...v1.0.31) (2026-06-21)
 
 ## [1.0.30](https://github.com/ivuorinen/base-configs-commitlint/compare/v1.0.29...v1.0.30) (2026-06-21)
