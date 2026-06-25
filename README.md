@@ -48,7 +48,7 @@ See [CHANGELOG][changelog-link] for a human-readable history of changes.
 
 Distributed under the MIT License. See [LICENSE][license-link] for more information.
 
-[changelog-link]: ./CHANGELOG.md
+[changelog-link]: https://github.com/ivuorinen/base-configs-commitlint/releases
 [commitlint-docs-link]: https://commitlint.js.org
 [commitlint-link]: https://github.com/conventional-changelog/commitlint
 [contributing-link]: https://github.com/ivuorinen/.github/blob/main/CONTRIBUTING.md

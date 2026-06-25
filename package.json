@@ -1,6 +1,6 @@
 {
   "name": "@ivuorinen/commitlint-config",
-  "version": "0.3.12",
+  "version": "1.0.31",
   "type": "module",
   "description": "ivuorinen's shareable configuration for commitlint.",
   "author": {
@@ -43,13 +43,18 @@
     "test": "node --test"
   },
   "dependencies": {
-    "@commitlint/cli": "^20.2.0",
-    "@commitlint/config-conventional": "^20.2.0",
-    "@ivuorinen/config-checker": "^2"
+    "@commitlint/cli": "^21.0.0",
+    "@commitlint/config-conventional": "^21.0.0",
+    "@ivuorinen/config-checker": "^2.1.2"
   },
   "devDependencies": {
-    "@ivuorinen/semantic-release-config": "^1.0.0",
+    "@ivuorinen/semantic-release-config": "^1.1.20",
     "@types/node": "*"
   },
-  "packageManager": "yarn@4.12.0"
+  "resolutions": {
+    "brace-expansion": "^5.0.6",
+    "picomatch": "^4.0.4",
+    "undici": "^8.0.0"
+  },
+  "packageManager": "yarn@4.17.0"
 }
