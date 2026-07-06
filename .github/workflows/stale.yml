@@ -27,4 +27,4 @@ jobs:
       issues: write # required to close and comment on stale issues
       pull-requests: write # required to close and comment on stale PRs
     steps:
-      - uses: ivuorinen/actions/stale@8395dad6b7d5d7d2e1d016cac1eede33ab404a3c # v2026.06.18
+      - uses: ivuorinen/actions/stale@94a4f68a6b95ecc1677fbcac1683119fd869adf7 # v2026.07.04
