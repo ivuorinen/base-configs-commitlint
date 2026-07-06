@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.37](https://github.com/ivuorinen/base-configs-commitlint/compare/v1.0.36...v1.0.37) (2026-07-06)
+
+
+### Bug Fixes
+
+* resolve zizmor findings and update tooling configs ([#172](https://github.com/ivuorinen/base-configs-commitlint/issues/172)) ([4674f2e](https://github.com/ivuorinen/base-configs-commitlint/commit/4674f2efa1287619ba8c24a4f6f56aaff1593db0))
+
 ## [1.0.36](https://github.com/ivuorinen/base-configs-commitlint/compare/v1.0.35...v1.0.36) (2026-07-02)
 
 ## [1.0.35](https://github.com/ivuorinen/base-configs-commitlint/compare/v1.0.34...v1.0.35) (2026-07-02)
