@@ -48,7 +48,7 @@
     "@ivuorinen/config-checker": "^2.1.2"
   },
   "devDependencies": {
-    "@ivuorinen/semantic-release-config": "^1.1.20",
+    "@ivuorinen/semantic-release-config": "^2.0.0",
     "@types/node": "*"
   },
   "resolutions": {
