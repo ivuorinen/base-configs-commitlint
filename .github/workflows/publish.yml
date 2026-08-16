@@ -69,7 +69,7 @@ jobs:
         # — the original objection was to a floating install, not a pinned one.
         run: |
           if [ "$(node -p 'parseInt(process.versions.node, 10)')" -ge 25 ]; then
-            npm install -g corepack@0.35.0
+            npm install -g --ignore-scripts corepack@0.35.0
           fi
           corepack enable
 
@@ -86,7 +86,12 @@ jobs:
       - name: Install Dependencies
         shell: bash
         if: steps.cache.outputs.cache-hit != 'true'
-        run: yarn install
+        # --mode=skip-build for the same reason as the test workflow, and more
+        # so here: this job holds the PAT and npm publish rights, so it is the
+        # worst place to let 400+ dependencies run install scripts. Packages are
+        # still linked, which is all that @ivuorinen/semantic-release-config
+        # needs to resolve from .releaserc.json.
+        run: yarn install --mode=skip-build
 
       - name: Run tests
         shell: bash

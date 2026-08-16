@@ -54,7 +54,7 @@ jobs:
         # version-pinned copy, never a floating one.
         run: |
           if [ "$(node -p 'parseInt(process.versions.node, 10)')" -ge 25 ]; then
-            npm install -g corepack@0.35.0
+            npm install -g --ignore-scripts corepack@0.35.0
           fi
           corepack enable
 
