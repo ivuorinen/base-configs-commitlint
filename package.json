@@ -11,13 +11,17 @@
     "url": "https://github.com/ivuorinen/base-configs-commitlint/issues"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22.12.0"
   },
   "main": "index.cjs",
   "module": "wrapper.mjs",
   "exports": {
-    "import": "./wrapper.mjs",
-    "require": "./index.cjs"
+    ".": {
+      "import": "./wrapper.mjs",
+      "require": "./index.cjs",
+      "default": "./index.cjs"
+    },
+    "./package.json": "./package.json"
   },
   "files": [
     "index.cjs",
@@ -43,13 +47,20 @@
     "test": "node --test"
   },
   "dependencies": {
-    "@commitlint/cli": "^21.0.0",
-    "@commitlint/config-conventional": "^21.0.0",
-    "@ivuorinen/config-checker": "^2.1.2"
+    "@commitlint/config-conventional": "^21.2.2",
+    "@ivuorinen/config-checker": "^2.6.7"
+  },
+  "peerDependencies": {
+    "@commitlint/cli": ">=21"
+  },
+  "peerDependenciesMeta": {
+    "@commitlint/cli": {
+      "optional": true
+    }
   },
   "devDependencies": {
-    "@ivuorinen/semantic-release-config": "^2.0.0",
-    "@types/node": "*"
+    "@commitlint/cli": "^21.2.2",
+    "@ivuorinen/semantic-release-config": "^2.0.7"
   },
   "resolutions": {
     "brace-expansion": "^5.0.7",

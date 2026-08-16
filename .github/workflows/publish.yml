@@ -19,12 +19,12 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    # This workflow triggers on push only, so there is no pull request or
+    # issue for the linter to comment on — no write scope for either.
     permissions:
-      statuses: write # required to report the lint status
-      contents: read # required to checkout the repository
+      contents: read # required by the action's own checkout step
+      statuses: write # required to report the lint status on the pushed commit
       packages: read # required to read packages metadata
-      issues: write # required for the linter to comment on issues
-      pull-requests: write # required to comment on pull requests
 
     steps:
       - name: Run PR Lint
@@ -61,22 +61,37 @@ jobs:
           scope: "@ivuorinen"
 
       - name: Enable corepack
-        shell: sh
-        # Use the Corepack bundled with the .nvmrc Node version instead of
-        # installing a floating copy from npm in this privileged release job.
-        run: corepack enable
+        shell: bash
+        # Node 25 dropped the bundled Corepack and .nvmrc is past that, so this
+        # release job has none of its own. Runner images currently supply one,
+        # but that is an undocumented side effect being removed upstream, and a
+        # publish must not rest on it. The copy installed here is version-pinned
+        # — the original objection was to a floating install, not a pinned one.
+        run: |
+          if [ "$(node -p 'parseInt(process.versions.node, 10)')" -ge 25 ]; then
+            npm install -g --ignore-scripts corepack@0.35.0
+          fi
+          corepack enable
 
       - name: Cache Node Modules
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         id: cache
+        # .nvmrc moves independently of yarn.lock, and the install is skipped
+        # on a hit — without both in the key a Node bump reuses a tree built
+        # for the previous runtime.
         with:
           path: node_modules
-          key: node-modules-${{ hashFiles('**/yarn.lock') }}
+          key: node-modules-${{ runner.os }}-${{ hashFiles('.nvmrc', '**/yarn.lock') }}
 
       - name: Install Dependencies
         shell: bash
         if: steps.cache.outputs.cache-hit != 'true'
-        run: yarn install
+        # --mode=skip-build for the same reason as the test workflow, and more
+        # so here: this job holds the PAT and npm publish rights, so it is the
+        # worst place to let 400+ dependencies run install scripts. Packages are
+        # still linked, which is all that @ivuorinen/semantic-release-config
+        # needs to resolve from .releaserc.json.
+        run: yarn install --mode=skip-build
 
       - name: Run tests
         shell: bash

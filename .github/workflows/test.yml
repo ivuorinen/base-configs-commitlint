@@ -20,7 +20,59 @@ permissions: {}
 
 jobs:
   test:
-    name: Resolve entry points
+    name: Test (Node ${{ matrix.node-version }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    permissions:
+      contents: read # required to checkout the repository
+
+    strategy:
+      fail-fast: false
+      # The floor must match engines.node in package.json, so the support
+      # range this package advertises is one it has actually been run on.
+      matrix:
+        node-version: ["22.12.0", "24", "26"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Enable corepack
+        shell: bash
+        # Node 25 dropped the bundled Corepack, so the 26 leg has none. Runner
+        # images currently supply one, but that is an undocumented side effect
+        # being removed upstream — do not build the install on it. Where the
+        # runtime ships Corepack (22.x, 24.x) use it; otherwise install a
+        # version-pinned copy, never a floating one.
+        run: |
+          if [ "$(node -p 'parseInt(process.versions.node, 10)')" -ge 25 ]; then
+            npm install -g --ignore-scripts corepack@0.35.0
+          fi
+          corepack enable
+
+      # The postinstall and commitlint tests load real dependencies, so the
+      # suite no longer runs on a bare checkout. --mode=skip-build keeps
+      # dependency lifecycle scripts from executing on the runner; nothing here
+      # needs a build step, and the tests invoke this package's own postinstall
+      # directly rather than relying on install to have run it.
+      - name: Install Dependencies
+        shell: bash
+        run: yarn install --immutable --mode=skip-build
+
+      - name: Run tests
+        shell: bash
+        run: node --test
+
+  lockfile:
+    name: Scan lockfile
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -33,13 +85,30 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Setup Node.js Environment
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+      # Ranges in package.json only take effect when the lock is regenerated,
+      # so advisories reappear silently as the pinned transitives age. Fail
+      # here instead of discovering it at release time.
+      - name: Scan yarn.lock for known vulnerabilities
+        uses: google/osv-scanner-action/osv-scanner-action@8deb546fdb875b9996d27d4950be7312dac076a1 # v2.5.0
         with:
-          node-version-file: ".nvmrc"
+          scan-args: |-
+            --lockfile=yarn.lock
 
-      # The resolution test loads the package by its own name via self-reference
-      # and has no third-party dependencies, so no install step is required.
-      - name: Run tests
-        shell: bash
-        run: node --test
+  pre-commit:
+    name: Pre-commit hooks
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    permissions:
+      contents: read # required to checkout the repository
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # The hooks rewrite files rather than only reporting, so a passing run
+      # is one that leaves the tree unchanged.
+      - name: Run pre-commit
+        uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1

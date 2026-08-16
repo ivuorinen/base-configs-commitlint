@@ -1,6 +1,12 @@
 ---
 extends: default
 
+# yamllint reads this key, not a .yamlignore file. Without it a bare
+# `yamllint .` walks node_modules and reports third-party findings.
+ignore: |
+  node_modules/
+  .yarn/
+
 rules:
   line-length:
     max: 200
