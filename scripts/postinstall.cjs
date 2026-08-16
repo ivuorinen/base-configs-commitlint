@@ -41,8 +41,16 @@ function createStarterConfig() {
     extends: ["@ivuorinen/commitlint-config"],
   };
 
-  if (!fs.existsSync(filePath)) {
-    fs.writeFileSync(filePath, JSON.stringify(fileConfigObject, undefined, 2));
+  // "wx" fails with EEXIST rather than truncating. An existsSync check followed
+  // by a write is a TOCTOU race: concurrent installs share a project root, so
+  // the file can appear between the two calls and the write would clobber a
+  // config the user already has. Let the open be the check.
+  try {
+    fs.writeFileSync(filePath, JSON.stringify(fileConfigObject, undefined, 2), { flag: "wx" });
+  } catch (error) {
+    if (error.code !== "EEXIST") {
+      throw error;
+    }
   }
 }
 
