@@ -7,24 +7,30 @@
 ## Table of Contents <!-- omit in toc -->
 
 - [Installation](#installation)
+- [Configuration](#configuration)
 - [Documentations](#documentations)
+- [Dependency pins](#dependency-pins)
 - [Contributing](#contributing)
 - [Changelog](#changelog)
 - [License](#license)
 
 ## Installation
 
-Install `this config` as a _`devDependencies`_:
+Install `this config` and the commitlint CLI as _`devDependencies`_:
 
 ```sh
 # npm
-npm install @ivuorinen/commitlint-config --save-dev
+npm install @ivuorinen/commitlint-config @commitlint/cli --save-dev
 
 # Yarn
-yarn add @ivuorinen/commitlint-config --dev
+yarn add @ivuorinen/commitlint-config @commitlint/cli --dev
 ```
 
-After installing it, a _`.commitlintrc.json`_ file will be created automatically in the project's root folder with the following configuration:
+`@commitlint/cli` is an optional peer dependency, so your own version wins instead of a second copy being installed alongside it.
+
+After installing it, a _`.commitlintrc.json`_ file is created in the project's root folder with the configuration below — unless a
+commitlint config already exists, in which case the existing one is left untouched. Install with `--ignore-scripts` to skip this
+step entirely.
 
 ```json
 {
@@ -32,9 +38,34 @@ After installing it, a _`.commitlintrc.json`_ file will be created automatically
 }
 ```
 
+## Configuration
+
+Extends [`@commitlint/config-conventional`][config-conventional-link] with one override:
+
+| Rule | This config | `@commitlint/config-conventional` |
+| --- | --- | --- |
+| `body-leading-blank` | `[2, "always"]` — error | `[1, "always"]` — warning |
+
+A commit body that does not start with a blank line fails the lint here, where upstream only warns. Everything else is inherited unchanged.
+
+Requires Node.js `>=22.12.0`, the floor set by commitlint 21.
+
 ## Documentations
 
 Read the [CommitLint docs][commitlint-docs-link] for more information.
+
+## Dependency pins
+
+`resolutions` in _`package.json`_ pins transitive packages with published advisories. It is Yarn-specific and applies to this
+repository's own install tree only — consumers of the published package resolve transitives themselves from the `dependencies`
+ranges, so these pins are not a control that reaches them. The gate that does is the `osv-scanner` step in
+_`.github/workflows/test.yml`_; check locally with:
+
+```sh
+osv-scanner scan source --lockfile=yarn.lock
+```
+
+Drop a pin once the fix is inside the range the direct dependency itself requires.
 
 ## Contributing
 
@@ -50,6 +81,7 @@ Distributed under the MIT License. See [LICENSE][license-link] for more informat
 
 [changelog-link]: https://github.com/ivuorinen/base-configs-commitlint/releases
 [commitlint-docs-link]: https://commitlint.js.org
+[config-conventional-link]: https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional
 [commitlint-link]: https://github.com/conventional-changelog/commitlint
 [contributing-link]: https://github.com/ivuorinen/.github/blob/main/CONTRIBUTING.md
 [issue-link]: https://github.com/ivuorinen/base-configs-commitlint/issues
