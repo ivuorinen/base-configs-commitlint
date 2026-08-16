@@ -34,10 +34,16 @@ jobs:
           persist-credentials: false
 
       - name: Enable corepack
-        shell: sh
-        # Use the runner's bundled Corepack instead of installing a floating
-        # copy from npm.
-        run: corepack enable
+        shell: bash
+        # Same guard as the other workflows: Node 25 dropped the bundled
+        # Corepack, and the runner image's copy is an undocumented side effect
+        # being removed upstream. This job pins no Node of its own, so the gate
+        # reads whichever one the image provides.
+        run: |
+          if [ "$(node -p 'parseInt(process.versions.node, 10)')" -ge 25 ]; then
+            npm install -g corepack@0.35.0
+          fi
+          corepack enable
 
       - name: Yarn Lock Changes
         uses: Simek/yarn-lock-changes@59f47ee499424d2c2437c5aebf863b5c6d50a5bc # v0.14.1

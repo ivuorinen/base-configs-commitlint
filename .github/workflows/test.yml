@@ -46,10 +46,17 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Enable corepack
-        shell: sh
-        # Use the Corepack bundled with the matrix Node version instead of
-        # installing a floating copy from npm.
-        run: corepack enable
+        shell: bash
+        # Node 25 dropped the bundled Corepack, so the 26 leg has none. Runner
+        # images currently supply one, but that is an undocumented side effect
+        # being removed upstream — do not build the install on it. Where the
+        # runtime ships Corepack (22.x, 24.x) use it; otherwise install a
+        # version-pinned copy, never a floating one.
+        run: |
+          if [ "$(node -p 'parseInt(process.versions.node, 10)')" -ge 25 ]; then
+            npm install -g corepack@0.35.0
+          fi
+          corepack enable
 
       # The postinstall and commitlint tests load real dependencies, so the
       # suite no longer runs on a bare checkout. --mode=skip-build keeps

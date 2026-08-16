@@ -46,16 +46,22 @@ test("leaves an existing config untouched", () => {
   assert.match(output, /skipping creation/, "the skip must be reported to the user");
 });
 
-test("does not fail the install when the project root is read-only", () => {
-  // Regression guard: an uncaught EACCES here aborts the consumer's entire
-  // `npm install`, not just the config creation.
-  const root = tempRoot();
-  fs.chmodSync(root, 0o555);
+test("does not fail the install when the config cannot be written", () => {
+  // Regression guard: an uncaught write error here aborts the consumer's
+  // entire `npm install`, not just the config creation.
+  //
+  // The unwritable root is modelled with a regular file rather than a 0555
+  // directory. A permission-based guard only holds for an unprivileged user —
+  // root bypasses the check via CAP_DAC_OVERRIDE and would create the file,
+  // failing the assertion below in any root container. ENOTDIR comes from path
+  // resolution, so it holds at every uid.
+  const root = path.join(tempRoot(), "not-a-directory");
+  fs.writeFileSync(root, "");
 
   try {
     assert.doesNotThrow(() => run(root));
     assert.equal(fs.existsSync(path.join(root, CONFIG_NAME)), false);
   } finally {
-    fs.chmodSync(root, 0o755);
+    fs.unlinkSync(root);
   }
 });
