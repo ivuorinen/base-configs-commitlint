@@ -28,9 +28,11 @@ yarn add @ivuorinen/commitlint-config @commitlint/cli --dev
 
 `@commitlint/cli` is an optional peer dependency, so your own version wins instead of a second copy being installed alongside it.
 
-After installing it, a _`.commitlintrc.json`_ file is created in the project's root folder with the configuration below — unless a
-commitlint config already exists, in which case the existing one is left untouched. Install with `--ignore-scripts` to skip this
-step entirely.
+Create a _`.commitlintrc.json`_ in the project's root folder with the configuration below. With npm, a `postinstall`
+script writes it for you unless a commitlint config already exists (npm 11 warns that the script is not covered by
+`allowScripts`; install with `--ignore-scripts` to skip it). Yarn 4 does not run dependency install scripts, so no file
+is written — without one, commitlint exits with "Please add rules to your `commitlint.config.js`". pnpm refuses
+unapproved install scripts and fails the install until you allow this package with `pnpm approve-builds`.
 
 ```json
 {
@@ -69,7 +71,7 @@ Drop a pin once the fix is inside the range the direct dependency itself require
 
 ## Contributing
 
-If you are interested in helping contribute, please take a look at our [contribution guidelines][contributing-link] and open an [issue][issue-link] or [pull request][pull-request-link].
+If you are interested in helping contribute, please open an [issue][issue-link] or [pull request][pull-request-link].
 
 ## Changelog
 
@@ -83,7 +85,6 @@ Distributed under the MIT License. See [LICENSE][license-link] for more informat
 [commitlint-docs-link]: https://commitlint.js.org
 [config-conventional-link]: https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional
 [commitlint-link]: https://github.com/conventional-changelog/commitlint
-[contributing-link]: https://github.com/ivuorinen/.github/blob/main/CONTRIBUTING.md
 [issue-link]: https://github.com/ivuorinen/base-configs-commitlint/issues
 [license-badge]: https://img.shields.io/github/license/ivuorinen/base-configs-commitlint?style=flat-square&labelColor=292a44&color=663399
 [license-link]: ./LICENSE.md
