@@ -1,4 +1,4 @@
-import { test } from "node:test";
+import { after, test } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import fs from "node:fs";
@@ -12,10 +12,24 @@ import { fileURLToPath } from "node:url";
 const SCRIPT = fileURLToPath(new URL("../scripts/postinstall.cjs", import.meta.url));
 const CONFIG_NAME = ".commitlintrc.json";
 
-/** Fresh temp directory standing in for a consumer's project root. */
+const roots = [];
+
+/**
+ * Fresh temp directory standing in for a consumer's project root. Each one is
+ * recorded so the `after` hook below removes it; without that every run left
+ * a commitlint-config-* directory per test behind in the OS temp dir.
+ */
 function tempRoot() {
-  return fs.mkdtempSync(path.join(os.tmpdir(), "commitlint-config-"));
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "commitlint-config-"));
+  roots.push(root);
+  return root;
 }
+
+after(() => {
+  for (const root of roots) {
+    fs.rmSync(root, { recursive: true, force: true });
+  }
+});
 
 /** Run the postinstall script as npm would, with INIT_CWD pointing at `cwd`. */
 function run(cwd) {
