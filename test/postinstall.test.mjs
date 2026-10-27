@@ -30,8 +30,11 @@ test("writes .commitlintrc.json when the project has no commitlint config", () =
 
   run(root);
 
-  const written = JSON.parse(fs.readFileSync(path.join(root, CONFIG_NAME), "utf8"));
-  assert.deepEqual(written, { extends: ["@ivuorinen/commitlint-config"] });
+  const contents = fs.readFileSync(path.join(root, CONFIG_NAME), "utf8");
+  assert.deepEqual(JSON.parse(contents), { extends: ["@ivuorinen/commitlint-config"] });
+  // The file lands in the consumer's repo, where EditorConfig and formatters
+  // expect a final newline.
+  assert.ok(contents.endsWith("}\n"), ".commitlintrc.json should end with a newline");
 });
 
 test("leaves an existing config untouched", () => {

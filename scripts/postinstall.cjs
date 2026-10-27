@@ -45,8 +45,10 @@ function createStarterConfig() {
   // by a write is a TOCTOU race: concurrent installs share a project root, so
   // the file can appear between the two calls and the write would clobber a
   // config the user already has. Let the open be the check.
+  // The trailing newline keeps the generated file passing the consumer's
+  // EditorConfig (insert_final_newline) and formatter checks.
   try {
-    fs.writeFileSync(filePath, JSON.stringify(fileConfigObject, undefined, 2), { flag: "wx" });
+    fs.writeFileSync(filePath, `${JSON.stringify(fileConfigObject, undefined, 2)}\n`, { flag: "wx" });
   } catch (error) {
     if (error.code !== "EEXIST") {
       throw error;
