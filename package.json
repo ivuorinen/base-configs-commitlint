@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "@commitlint/config-conventional": "^21.2.2",
-    "@ivuorinen/config-checker": "^2.6.7"
+    "@ivuorinen/config-checker": "^2.7.0"
   },
   "peerDependencies": {
     "@commitlint/cli": ">=21"
