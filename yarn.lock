@@ -307,7 +307,7 @@ __metadata:
     "@commitlint/cli": "npm:^21.2.2"
     "@commitlint/config-conventional": "npm:^21.2.2"
     "@ivuorinen/config-checker": "npm:^2.7.0"
-    "@ivuorinen/semantic-release-config": "npm:^3.0.0"
+    "@ivuorinen/semantic-release-config": "npm:^3.0.10"
     conventional-changelog-conventionalcommits: "npm:^9.3.1"
   peerDependencies:
     "@commitlint/cli": ">=21"
@@ -324,14 +324,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ivuorinen/semantic-release-config@npm:^3.0.0":
-  version: 3.0.8
-  resolution: "@ivuorinen/semantic-release-config@npm:3.0.8"
+"@ivuorinen/semantic-release-config@npm:^3.0.10":
+  version: 3.0.10
+  resolution: "@ivuorinen/semantic-release-config@npm:3.0.10"
   dependencies:
     "@ivuorinen/config-checker": "npm:^2.2.17"
     conventional-changelog-conventionalcommits: "npm:^9.3.1"
     semantic-release: "npm:^25.0.5"
-  checksum: 10c0/aea8d65dbfbfc251b70040594c525b1c3cec1e6edd50941bb00b5fb9c7dd2c275d0bf22025214ba5f35a22090bfbe643a27c97a5335a1bbebb79c71973cea947
+  checksum: 10c0/53fcfc8b80deb8d678e05859ea345f919c8dec9212a5b9fb112cc59db1759c55d03f7cc5c0e6e1306e7fd474e69472ddd01f26a594bd2c4829c78a1d2095d8f5
   languageName: node
   linkType: hard
 
