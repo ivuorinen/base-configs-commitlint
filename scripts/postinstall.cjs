@@ -2,67 +2,29 @@
 
 /* eslint no-console: "off", no-undefined: "off" -- CLI app that gives users feedback */
 
-const fs = require("node:fs");
-const path = require("node:path");
-// noinspection NpmUsedModulesInstalled
-const process = require("node:process");
-
-// npm/yarn set INIT_CWD to the consumer's project root during install. Default
-// it to the current directory so this script and @ivuorinen/config-checker
-// (which also reads INIT_CWD) do not crash when run outside an install.
-process.env.INIT_CWD = process.env.INIT_CWD || process.cwd();
-
-const checkConfig = require("@ivuorinen/config-checker");
+const { writeStarterConfig } = require("@ivuorinen/config-checker");
 
 const CONFIG_NAME = ".commitlintrc.json";
 
-/**
- * Create the starter commitlint config in the consumer's project root, unless
- * the project already has one.
- *
- * Left to throw on purpose — the caller converts any failure into a warning.
- * Every filesystem call here can fail for reasons that are none of the
- * consumer's doing: a read-only project root in a container build, a
- * root-owned checkout installed into as a non-root user, a read-only shared
- * node_modules volume.
- */
-function createStarterConfig() {
-  const foundConfig = checkConfig("commitlint");
+// This runs as an npm `postinstall` lifecycle script, so an uncaught error fails
+// the consumer's entire dependency install — creating an optional convenience
+// file is not worth aborting an install over. writeStarterConfig never throws:
+// it falls back to the working directory when INIT_CWD is unset, creates the
+// file with "wx" so a config a concurrent install wrote is never clobbered, and
+// returns a failed write for this script to report. Writes fail for reasons that
+// are none of the consumer's doing: a read-only project root in a container
+// build, a root-owned checkout installed into as a non-root user.
+const result = writeStarterConfig(
+  "commitlint",
+  CONFIG_NAME,
+  JSON.stringify({ extends: ["@ivuorinen/commitlint-config"] }, undefined, 2),
+);
 
-  if (foundConfig.length > 0) {
-    console.log("commitlint-config: Found existing commitlint config file, skipping creation.");
-    console.log("commitlint-config: If you want to create a new config file, please remove the existing one.");
-    console.log(`commitlint-config: Found config files at: ${foundConfig.join(", ")}`);
-    return;
-  }
-
-  const filePath = path.join(process.env.INIT_CWD, CONFIG_NAME);
-  const fileConfigObject = {
-    extends: ["@ivuorinen/commitlint-config"],
-  };
-
-  // "wx" fails with EEXIST rather than truncating. An existsSync check followed
-  // by a write is a TOCTOU race: concurrent installs share a project root, so
-  // the file can appear between the two calls and the write would clobber a
-  // config the user already has. Let the open be the check.
-  // The trailing newline keeps the generated file passing the consumer's
-  // EditorConfig (insert_final_newline) and formatter checks.
-  try {
-    fs.writeFileSync(filePath, `${JSON.stringify(fileConfigObject, undefined, 2)}\n`, { flag: "wx" });
-  } catch (error) {
-    if (error.code !== "EEXIST") {
-      throw error;
-    }
-  }
-}
-
-// Never rethrow. This runs as an npm `postinstall` lifecycle script, so an
-// uncaught error fails the consumer's entire dependency install — creating an
-// optional convenience file is not worth aborting an install over. Degrade to
-// a warning that tells the user what to write by hand.
-try {
-  createStarterConfig();
-} catch (error) {
-  console.warn(`commitlint-config: could not create ${CONFIG_NAME}: ${error.message}`);
+if (result.status === "found") {
+  console.log("commitlint-config: Found existing commitlint config file, skipping creation.");
+  console.log("commitlint-config: If you want to create a new config file, please remove the existing one.");
+  console.log(`commitlint-config: Found config files at: ${result.found.join(", ")}`);
+} else if (result.status === "failed") {
+  console.warn(`commitlint-config: could not create ${CONFIG_NAME}: ${result.error.message}`);
   console.warn(`commitlint-config: create it yourself with {"extends": ["@ivuorinen/commitlint-config"]}`);
 }
