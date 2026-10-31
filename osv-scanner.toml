@@ -1,0 +1,30 @@
+# osv-scanner configuration: https://google.github.io/osv-scanner/configuration/
+
+# glob and minimatch reach the tree only through the release tooling:
+# @ivuorinen/semantic-release-config -> @semantic-release/npm -> npm and its
+# @npmcli/*, cacache, ignore-walk, libnpmdiff and @tufjs/models. Neither is in
+# the published package's dependency closure. The fixes ship only in glob
+# 14.0.2 and minimatch 11.0.1, and npm's latest release (12.2.1) still requires
+# glob ^13.0.6 and minimatch ^10.2.5, so they cannot be resolved without
+# forcing a major under npm. npm runs only in the publish job, as
+# `npm publish --dry-run` (auth check), `npm version` and `npm publish`.
+# Running those with both packages instrumented (2026-10-31):
+#
+# - glob: 4 calls per publish, with npm's literal patterns `*.gyp` and
+#   `{README,README.*}`, none passing a signal. The advisory is that an
+#   aborted walk keeps traversing, which needs a caller that aborts.
+# - minimatch: 77 calls per publish, all at the default optimizationLevel 1.
+#   The advisory's amplification is in level-2 preprocessing, and no consumer
+#   of the package sets optimizationLevel. glob 13 bundles its own copy at
+#   level 2, whose only inputs are the two glob patterns above.
+#
+# Revisit when npm moves to glob 14 and minimatch 11, or by the date.
+[[IgnoredVulns]]
+id = "GHSA-3g3m-2fjr-6pw4"
+ignoreUntil = 2027-01-31T00:00:00Z
+reason = "glob runs only in npm during release, and npm never passes it a signal, so no caller relies on abort"
+
+[[IgnoredVulns]]
+id = "GHSA-g3hv-75wg-m249"
+ignoreUntil = 2027-01-31T00:00:00Z
+reason = "minimatch runs only in npm during release, at optimizationLevel 1, on npm's and this repo's own patterns"
